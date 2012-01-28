@@ -1,0 +1,14 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    cri (2.1.0)
+    nanoc (3.2.4)
+      nanoc3 (>= 3.2.4)
+    nanoc3 (3.2.4)
+      cri (~> 2.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  nanoc
