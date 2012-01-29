@@ -1,0 +1,3 @@
+## Kosmonaut for Erlang
+
+TODO: ...

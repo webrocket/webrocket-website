@@ -1,0 +1,3 @@
+## Install on Arch linux
+
+TODO: ...

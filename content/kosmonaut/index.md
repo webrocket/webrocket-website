@@ -1,0 +1,3 @@
+## The Kosmonaut concept
+
+TODO: ...
