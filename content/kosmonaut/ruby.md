@@ -7,7 +7,7 @@ kind:  article
 
 Kosmonaut version for Ruby is an **official** client. It is considered to be **stable**. 
 
-Ruby implementation follows the [concept of Kosmonaut](/kosmonaut/) by providing
+Ruby implementation follows [the concept of Kosmonaut](/docs/kosmonaut/) by providing
 two kind of sockets. Below you can find a trivial examples of usage both
 of them.
 
