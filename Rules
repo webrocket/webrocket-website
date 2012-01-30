@@ -14,8 +14,12 @@
 #   item, use the pattern “/about/*/”; “/about/*” will also select the parent,
 #   because “*” matches zero or more characters.
 
-compile '/stylesheet/' do
-  # don’t filter or layout
+compile '/css/*/' do
+  filter(:sass, sass_options) if item[:extension] == 'sass'
+end
+
+compile '/js/*/' do
+  filter(:coffee) if item[:extension] == 'coffee'
 end
 
 compile '*' do
@@ -33,8 +37,16 @@ compile '*' do
   end
 end
 
-route '/stylesheet/' do
-  '/style.css'
+route '/img/*/' do
+  item.identifier.chop + '.' + item[:extension]
+end
+
+route '/css/*/' do
+  item.identifier.chop + '.css'
+end
+
+route '/js/*/' do
+  item.identifier.chop + '.js'
 end
 
 route '*' do
