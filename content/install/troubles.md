@@ -1,4 +1,4 @@
 ## Troubleshooting
 
-<%= NOT_READY %>
+<%= $NOT_READY %>
 

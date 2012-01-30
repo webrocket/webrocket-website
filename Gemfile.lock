@@ -3,16 +3,20 @@ GEM
   specs:
     adsf (1.0.1)
       rack (>= 1.0.0)
+    coderay (1.0.5)
     cri (2.1.0)
-    nanoc (3.2.4)
-      nanoc3 (>= 3.2.4)
     nanoc3 (3.2.4)
       cri (~> 2.0)
+    nokogiri (1.5.0)
     rack (1.4.1)
+    rdiscount (1.6.8)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   adsf
-  nanoc
+  coderay
+  nanoc3
+  nokogiri
+  rdiscount

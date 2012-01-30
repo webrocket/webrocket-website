@@ -1,5 +1,8 @@
 # -*- ruby -*-
 source "http://rubygems.org"
 
-gem "nanoc"
+gem "nanoc3"
 gem "adsf"
+gem "rdiscount"
+gem "nokogiri"
+gem "coderay"

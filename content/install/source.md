@@ -1,4 +1,9 @@
-## Install from source
+---
+title: Installation from source
+kind:  article
+---
+
+## Installation from source
 
 To install WebRocket from source you need the following tools and dependecies:
 
@@ -21,6 +26,7 @@ follow this instructions:
 When the build succeeds you need to add few environment variables to your
 '~/.bashrc' (or other shell configuration file):
 
+    #!bash
     export GOROOT=/path/to/go
     export GOOS=os-name # darwin, linux, freebsd...
     export GOARCH=arch-name # amd64 or i386
@@ -43,7 +49,7 @@ Once you have the Go compiler and all dependencies installed, we can move
 to building our WebRocket installation. Building WebRocket is very easy and
 shouldn't cause too many problems. 
 
-Download [the latest version](/releases/webrocket/webrocket-<%= WEBROCKET_LATEST_VERSION %>.tar.gz)
+Download [the latest version](/releases/webrocket/webrocket-<%= $WEBROCKET_LATEST_VERSION %>.tar.gz)
 of WebRocket server, unpack it and follow standard steps:
 
     $ ./configure
