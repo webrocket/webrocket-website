@@ -1,42 +1,31 @@
 # -*- ruby -*- 
 require 'bundler/setup'
 
-use Rack::ETag
-
-module ::Rack
-  class TryStatic < Static
-    def initialize(app, options)
-      super
-      @try = ([''] + Array(options.delete(:try)) + [''])
+class Rack::ExtStatic < Rack::Static
+  def call(env)
+    resp = super(env)
+    if resp[0] == 404
+      path_info = env['PATH_INFO']
+      env['PATH_INFO'] += @index if path_info =~ /\/$/
+      resp = super(env)
     end
-
-    def call(env)
-      @next = 0
-      @next += 1 until @next >= @try.size && 404 == (resp = super(try_next(env)))[0]
-      404 == resp[0] ? @app.call : resp
-    end
-
-    private
-
-    def try_next(env)
-      env.merge('PATH_INFO' => env['PATH_INFO'] + @try[@next])
-    end
+    resp
   end
 end
 
-use Rack::TryStatic, {
-  :root => "output",
-  :urls => %w[/],
-  :try  => ['.html', 'index.html', '/index.html']
+use Rack::ExtStatic, {
+  :root  => 'output',
+  :index => 'index.html',
+  :urls  => [""],
 }
 
 error_404 = 'output/404/index.html'
 
 run lambda {
   [404, {
-    "Last-Modified"  => File.mtime(errorFile).httpdate,
     "Content-Type"   => "text/html",
-    "Content-Length" => File.size(errorFile).to_s
+    "Content-Length" => File.size(error_404).to_s,
+    "Last-Modified"  => File.mtime(error_404).httpdate,
     }, File.read(error_404)
   ]
 }
