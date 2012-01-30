@@ -1,5 +1,4 @@
 # -*- ruby -*-
-require 'bundler/setup'
 require 'yaml'
 require 'nanoc3/tasks'
 
