@@ -1,3 +1,3 @@
 ## The Kosmonaut concept
 
-TODO: ...
+<%= NOT_READY %>

@@ -1,3 +1,3 @@
 ## Kosmonaut for Java
 
-TODO: ...
+<%= NOT_READY %>

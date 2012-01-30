@@ -1,3 +1,3 @@
 ## Kosmonaut for Node.JS
 
-TODO: ...
+<%= NOT_READY %>

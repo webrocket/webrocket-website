@@ -1,3 +1,3 @@
 ## Kosmonaut for PHP
 
-TODO: ...
+<%= NOT_READY %>

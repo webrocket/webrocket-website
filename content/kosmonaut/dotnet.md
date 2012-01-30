@@ -1,3 +1,3 @@
 ## Kosmonaut for .NET platform
 
-TODO: ...
+<%= NOT_READY %>

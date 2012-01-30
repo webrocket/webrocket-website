@@ -1,3 +1,3 @@
 ## Install on Arch linux
 
-TODO: ...
+<%= NOT_READY %>

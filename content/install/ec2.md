@@ -1,4 +1,4 @@
 ## Install on Amazon EC2
 
-TODO: ...
+<%= NOT_READY %>
 

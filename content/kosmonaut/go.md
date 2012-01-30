@@ -1,3 +1,3 @@
 ## Kosmonaut for Go
 
-TODO: ...
+<%= NOT_READY %>

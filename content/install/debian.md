@@ -1,4 +1,4 @@
 ## Install on Debian / Ubuntu
 
-TODO: ...
+<%= NOT_READY %>
 

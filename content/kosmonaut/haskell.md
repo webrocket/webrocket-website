@@ -1,3 +1,3 @@
 ## Kosmonaut for Haskell
 
-TODO: ...
+<%= NOT_READY %>

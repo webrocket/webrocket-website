@@ -1,3 +1,3 @@
 ## Install on Mac OS X from source
 
-TODO: ...
+<%= NOT_READY %>

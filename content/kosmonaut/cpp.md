@@ -1,3 +1,3 @@
 ## Kosmonaut for C++
 
-TODO: ...
+<%= NOT_READY %>

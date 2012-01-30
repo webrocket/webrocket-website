@@ -1,3 +1,3 @@
 ## Kosmonaut for Python
 
-TODO: ...
+<%= NOT_READY %>

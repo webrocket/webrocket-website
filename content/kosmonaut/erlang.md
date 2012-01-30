@@ -1,3 +1,3 @@
 ## Kosmonaut for Erlang
 
-TODO: ...
+<%= NOT_READY %>

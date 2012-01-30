@@ -1,3 +1,3 @@
 ## Kosmonaut for Perl
 
-TODO: ...
+<%= NOT_READY %>

@@ -1,3 +1,3 @@
 ## Install on Heroku Cedar Stack
 
-TODO: ...
+<%= NOT_READY %>

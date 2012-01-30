@@ -1,3 +1,3 @@
 ## Install on Mac OS X using Homebrew
 
-TODO: ...
+<%= NOT_READY %>
