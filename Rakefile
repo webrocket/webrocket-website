@@ -43,15 +43,15 @@ namespace :optimize do
   end
 
   # Package Requirement: jpegoptim
-  desc 'Optimize JPG images in output/images directory using jpegoptim'
+  desc 'Optimize JPG images in output/img directory using jpegoptim'
   task :jpg do
-    puts `find output/images -name '*.jpg' -exec jpegoptim {} \\;`
+    puts `find output/img -name '*.jpg' -exec jpegoptim {} \\;`
   end
 
   # Package Requirement: optipng
-  desc 'Optimize PNG images in output/images directory using optipng'
+  desc 'Optimize PNG images in output/img directory using optipng'
   task :png do
-    puts `find output/images -name '*.png' -exec optipng {} \\;`
+    puts `find output/img -name '*.png' -exec optipng {} \\;`
   end
 
   desc 'Optimize all JPG, PNG, Stylesheet and JavaScript files in the output directory'
