@@ -3,8 +3,6 @@ title: Installation from source
 kind:  article
 ---
 
-## Installation from source
-
 To install WebRocket from source you need the following tools and dependecies:
 
 ### Latest Go compiler (supported weekly.2012-01-27)

@@ -3,9 +3,7 @@ title: Documentation
 kind:  article
 ---
 
-## WebRocket Documentation
-
-Here you can find all information about the WebRocket server configuration, 
+Here you can find all information about the WebRocket server architecture, configuration, 
 usage and maintainance.
 
 ### Installation

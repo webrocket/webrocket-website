@@ -1,4 +1,7 @@
-## Install on Mac OS X using Macports
+---
+title: Install on Mac OS X using Macports
+kind:  article
+---
 
 <%= $NOT_READY %>
 

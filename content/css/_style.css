@@ -1,0 +1,186 @@
+@import url(http://fonts.googleapis.com/css?family=Rationale|Droid+Sans|Droid+Sans+Mono|Gudea:400,700,400italic);
+
+body {
+   width: 860px;
+   margin: 2em auto;
+   font-family: Arial, Helvetica, sans-serif;
+   font-size: 18px;
+   background: #213247;
+   color: #d5e2db;
+}
+
+a, a * {
+   text-decoration: underline;
+}
+a:hover, a:hover * {
+   text-decoration: none;
+}
+em {
+   font-style: normal;
+}
+strong, b {
+}
+dd {
+   margin-bottom: 10px;
+   margin-top: 5px;
+}
+
+#header {
+   margin-bottom: 3em;
+}
+
+#logo {
+}
+
+#how_it_works {
+   width: 266px;
+}
+#how_it_works h2 {
+   text-transform: uppercase;
+   padding: 0;
+   margin: 0;
+   font-family: ProtoSans50;
+   font-size: 2em;
+}
+#how_it_works h2 big {
+   display: block;
+   font-size: 2em;
+   font-family: ProtoSans55;
+   margin-top: -10px;
+   color: #b23b3f;
+}
+#how_it_works p {
+   text-align: justify;
+   line-height: 110%;
+   font-size: 100%;
+   font-family: ProtoSans10;
+   padding: 0;
+   margin: 0 0 0.8em 0;
+   padding-left: 2px;
+}
+#how_it_works p.l1 {
+   line-height: 120%;
+}
+#how_it_works p.l2 {
+   font-family: ProtoSans30;
+   font-size: 130%;
+   font-weight: bold;
+   color: #f9dc38;
+}
+
+#get_it_now {
+   margin-top: 3em;
+   background: rgba(0,0,0,0.2);
+   -webkit-border-radius: 2px;
+   padding: 1.5em;
+}
+
+#get_webrocket_server {
+   width: 300px;
+   position: absolute;
+}
+#get_webrocket_server .inside {
+   padding: 0 0.5em;
+   line-height: 60px;
+   background: #d5e2db;
+}
+#get_webrocket_server a {
+   color: #000;
+   display: block;
+   text-align: right;
+   font-family: ProtoSans20;
+   font-size: 1.2em;
+}
+#get_kosmonaut {
+   font-family: ProtoSans30;
+   padding-left: 300px;
+   text-align: right;
+}
+#get_kosmonaut a {
+   color: #d5e2db;
+   display: inline-block;
+   width: 60px;
+   margin-left: 0.5em;
+   -webkit-border-radius: 30px;
+   background: #b23b3f;
+   text-align: center;
+   line-height: 60px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+}
+h2 {
+   font-size: 190%;
+   margin: 0.5em 0 0.6em 0;
+   padding: 0.5em 0 0 0;
+}
+h3 {
+   margin: 1em 0 0.6em 0;
+   font-size: 160%;
+}
+h4 {
+   margin: 1em 0 0.4em 0;
+   font-size: 140%;
+}
+h5 {
+   margin: 1em 0 0.3em 0;
+   font-size: 120%;
+}
+
+.box {
+   padding: 10px;
+}
+.box a, .box em, .box strong {
+   color: #000;
+}
+.box.warning {
+   background: #DDAA00;
+   color: rgba(20,20,5,0.9);
+   box-shadow: -6px 6px 0 rgba(0,0,0,0.08);
+}
+.box.note {
+   color: rgba(2,15,20,0.9);
+   box-shadow: -6px 6px 0 rgba(0,0,0,0.08);
+   background: #33BBDD;
+}
+
+pre {
+   font-family: "Droid Sans Mono", monospace;
+   background: rgba(0,0,0,0.3);
+   padding: 6px 10px;
+   margin: 1em 0 2em 0;
+   font-size: 95%;
+}
+pre .c { font-style: italic; color: rgba(255,255,255,0.7); } /* Comment */
+pre .err { border: 1px solid #FF0000 } /* Error */
+pre .k { font-weight: bold } /* Keyword */
+pre .cm { font-style: italic; color: rgba(255,255,255,0.7); } /* Comment.Multiline */
+pre .c1 { font-style: italic; color: rgba(255,255,255,0.7); } /* Comment.Single */
+pre .cs { font-style: italic; color: rgba(255,255,255,0.7); } /* Comment.Special */
+pre .ge { font-style: italic; } /* Generic.Emph */
+pre .gh { font-weight: bold } /* Generic.Heading */
+pre .gp { font-weight: bold } /* Generic.Prompt */
+pre .gs { font-weight: bold } /* Generic.Strong */
+pre .gu { font-weight: bold } /* Generic.Subheading */
+pre .kc { font-weight: bold } /* Keyword.Constant */
+pre .kd { font-weight: bold } /* Keyword.Declaration */
+pre .kn { font-weight: bold } /* Keyword.Namespace */
+pre .kr { font-weight: bold } /* Keyword.Reserved */
+pre .s { font-style: italic } /* Literal.String */
+pre .nc { font-weight: bold } /* Name.Class */
+pre .ni { font-weight: bold } /* Name.Entity */
+pre .ne { font-weight: bold } /* Name.Exception */
+pre .nn { font-weight: bold } /* Name.Namespace */
+pre .nt { font-weight: bold } /* Name.Tag */
+pre .ow { font-weight: bold } /* Operator.Word */
+pre .sb { font-style: italic } /* Literal.String.Backtick */
+pre .sc { font-style: italic } /* Literal.String.Char */
+pre .sd { font-style: italic } /* Literal.String.Doc */
+pre .s2 { font-style: italic } /* Literal.String.Double */
+pre .se { font-weight: bold; font-style: italic } /* Literal.String.Escape */
+pre .sh { font-style: italic } /* Literal.String.Heredoc */
+pre .si { font-weight: bold; font-style: italic } /* Literal.String.Interpol */
+pre .sx { font-style: italic } /* Literal.String.Other */
+pre .sr { font-style: italic } /* Literal.String.Regex */
+pre .s1 { font-style: italic } /* Literal.String.Single */
+pre .ss { font-style: italic } /* Literal.String.Symbol */

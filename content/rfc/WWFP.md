@@ -3,8 +3,6 @@ title: WebRocket Websockets Frontend Protocol
 kind:  article
 ---
 
-## WebRocket Websockets Frontend Protocol
-
 ### Abstract
 
 The **WebRocket Websockets Frontend Protocol** (*WWFP*) is a transport layer 
@@ -124,8 +122,6 @@ When connected *Client* has successfully subscribed to the specified channel
 the *Server* SHALL send an event to confirm that situation. Message's payload 
 MUST contain the name of the subscribed channel.
 
-##### Basic format
-
     #!javascript
     {
         ":subscribed": {
@@ -138,11 +134,11 @@ MUST contain the name of the subscribed channel.
   <dd>The name of the subscribed channel.</dd>
 </dl>
 
-##### Private channel subscription
+#### Private channel subscription
 
 There is no extra parameters for private channel subscription.
 
-##### Presence channel subscription
+#### Presence channel subscription
 
 The *Presence channel* is a special kind of channel, which keeps track of all 
 *Clients* subscribed on it and shares that information across all other subscribers. 
@@ -305,16 +301,83 @@ explanation.
 
 <dl>
   <dt><strong>code</strong> [int]</dt>
-  <dd>The numeric error code. See <a href="#Status+codes">the list of status coded</a>.</dd>
+  <dd>The numeric error code. See <a href="#Status+codes">the list of status codes</a>.</dd>
   
   <dt><strong>status</strong> [string]</dt>
   <dd>A human readable error explanation.</dd>
 </dl>
 
-
 ### Server events
 
 ### Status codes
+
+WebRocket status codes are inspired by the [HTTP status codes](#References). Here's 
+the full list of possible statuses:
+
+#### 201 Authenticated
+
+Client has been successfully authenticated. Status SHALL NOT appear on the client
+side. 
+
+#### 202 Subscribed
+
+Client has successfully subscribed to the channel. Status SHALL NOT appear on the 
+client side. 
+
+#### 203 Unsubscribed
+
+Client has successfully unsubscribed a channel. Status SHALL NOT appear on the 
+client side.   
+
+#### 204 Broadcasted
+
+Client has successfully broadcasted information on a channel. Status SHALL NOT 
+appear on the client side. 
+
+#### 205 Triggered
+
+Client has successfully triggered a background operation. Status SHALL NOT appear 
+on the client side. 
+
+#### 207 Closed
+
+Client has closed the connection. Status SHALL NOT appear on the client side. 
+
+#### 400 Bad request
+
+The message sent by the client couldn't be understood due to malformed syntax.
+The client SHOULD NOT repeat the request without the modifications.
+
+#### 402 Unauthorized
+
+Returned when invalid credentials given - user doesn't exist in the system or
+secret key is not matching the specified user.
+
+#### 403 Forbidden
+
+The server understood the request, but is refusing to fulfill it due to lack 
+of user rights. The request SHOULD NOT be repeated until authenticate for as 
+a different user or grant current user with required permissions.
+
+#### 451 Invalid channel name
+
+Name of the channel specified in the payload is empty or contains invalid 
+characters. The request SHOULD NOT be repeated without the channel name 
+modifications.
+
+#### 453 Not subscribed
+
+Channel is not subscribed by this client, so the operation on it can not be 
+finished. The request SHOULD NOT be repeated.
+
+#### 454 Channel not found
+
+Specified channel does not exist, so the operation on it can not be finished. 
+The request SHOULD NOT be repeated until the channel will be created.
+
+#### 597 Internal error
+
+Something went wrong while processing request.
 
 ### References
 

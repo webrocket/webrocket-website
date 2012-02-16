@@ -1,4 +1,7 @@
-## Install on Amazon EC2
+---
+title: Install on Amazon EC2
+kind:  article
+---
 
 <%= $NOT_READY %>
 
