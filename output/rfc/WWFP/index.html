@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WebRocket - WebRocket Websockets Frontend Protocol</title>
+    <link rel="stylesheet" type="text/css" href="/css/webfonts.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen">
+    <meta name="generator" content="nanoc 3.2.4">
+  </head>
+  <body>
+    <header role="banner">
+      <div class="vessel">
+        <h1 id="logo"><a href="/">webrocket</a></h1>
+        <nav role="navigation">
+          <li><a href="/docs/">Docs</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><a href="/cloud/">Our Cloud!</a></li>
+        </nav>
+        <div class="clearfix"></div>
+      </div>
+    </header>
+    <aside id="tagline">
+      <div class="vessel">
+        Distributed Web Broker for the Masses!
+      </div>
+    </aside>
+    <section role="main">
+      <div class="vessel">
+        
+        <div class="article">
+          <h2>WebRocket Websockets Frontend Protocol</h2>
+          <aside id="toc"><h3>In this section</h3>
+<ul>
+<li><a href="#Abstract">Abstract</a></li>
+<li><a href="#Language">Language</a></li>
+<li><a href="#Goals">Goals</a></li>
+<li><a href="#Generalized+architecture">Generalized architecture</a></li>
+<li><a href="#Client+events">Client events</a></li>
+<li><a href="#Server+events">Server events</a></li>
+<li><a href="#Status+codes">Status codes</a></li>
+<li><a href="#References">References</a></li>
+</ul></aside><h3 id="Abstract">Abstract</h3>
+
+<p>The <strong>WebRocket Websockets Frontend Protocol</strong> (<em>WWFP</em>) is a transport layer
+protocol for exchanging messages between Browsers and the <a href="#Generalized+architecture"><em>Websocket Endpoint</em></a>
+implemented by WebRocket.</p>
+
+<h3 id="Language">Language</h3>
+
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in <a href="#References">RFC 2119</a>.</p>
+
+<h3 id="Goals">Goals</h3>
+
+<p>The purpose of the protocol is to allow for bidirectional, evented
+communication between Browsers and WebRocket over the <a href="#References">WebSockets Protocol</a>
+using the <a href="#References">HTML5 WebSockets API</a>.</p>
+
+<h3 id="Generalized+architecture">Generalized architecture</h3>
+
+<p>WebRocket handles Clients' connections with <strong>Websocket Endpoint</strong>, which is an
+evented HTTP server with Websockets support which handles communication with the
+<em>Clients</em> (Browsers) over the <a href="#References">HTML5's WebSockets Protocol</a>.</p>
+
+<p>The endpoint's URL is combined up of a number of parts:</p>
+
+<pre><code>[scheme]://[host]:[port]/[vhost]
+</code></pre>
+
+<dl>
+<dt><b>scheme</b></dt> 
+  <dd>Will be 'ws' for a normal connection and 'wss' for a secure.</dd>
+  
+  <dt><b>host</b></dt>
+  <dd>Websocket Endpoint is bound there.</dd>
+  
+  <dt><b>port</b></dt>
+  <dd>Websocket Endpoint is listening on that port.</dd>
+  
+  <dt><b>vhost</b></dt>
+  <dd>The virtual host to connect to.</dd>
+</dl><p>Example:</p>
+
+<pre><code>ws://cloud.webrocket.io:8080/echo
+</code></pre>
+
+<p>Protocol implements events exchanging mechanism which supports two kind of
+events <a href="#Client+events">Client</a> and <a href="#Server+events">Server</a> specific. <em>Client
+specific</em> events are those sent by the <em>Websocket Endpoint</em> to the <em>Client</em>,
+<em>Server specific</em> are those sent by the <em>Client</em> and handled by <em>Websocket Endpoint</em>.</p>
+
+<p>All event messages MUST have the following <a href="#References">JSON</a>-encoded format:</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">"eventName"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// ... payload parameters ... </span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<p>First found key is treated as the event name, and it's payload as the attributes
+attached to it. Other keys will be ignored.</p>
+
+<h3 id="Client+events">Client events</h3>
+
+<p>The <em>Client events</em> are sent by the <em>Websocket Endpoint</em> and MUST be handled
+by the <em>Client</em>. Two groups of <em>Client specific</em> events can be distinguished.</p>
+
+<dl>
+<dt><b>System events</b></dt>
+  <dd>
+    Events triggered automatically by the <em>Websocket Endpoint</em> and sent to the 
+    <em>Client</em>. System event names MUST be prefixed with colon (eg. <code>:connected</code>)
+    and colon is prohibited as a prefix of other event messages.
+  </dd>
+  
+  <dt><b>Custom events (user-defined)</b></dt>
+  <dd>
+    User-defined events are those triggered by <em>Backend Applications</em> or other connected 
+    <em>Clients</em>. <em>Custom events</em> always contains the <code>channel</code> parameter 
+    in its payload. It is not possible to receive a custom event without a channel assigned. 
+  </dd>
+</dl><h4 id="Connection+established">Connection established</h4>
+
+<p>When the connection is successfully established the Server sends an event
+to confirm that situation with the <em>Client</em>. Message's payload MUST contain
+unique identifier of the current session</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":connected"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"sid"</span><span class="o">:</span> <span class="s2">"session-id"</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<dl>
+<dt>
+<strong>sid</strong> [string]</dt>
+  <dd>An unique identifier of the current session.</dd>
+</dl><h4 id="Successfull+authentication">Successfull authentication</h4>
+
+<p>When connected <em>Client</em> has been successfully authenticated, then the <em>Server</em>
+SHALL send an event to confirm that situation. Message's payload MAY contain
+additional information about the authenticated session.</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":authenticated"</span><span class="o">:</span> <span class="p">{}</span>
+<span class="p">}</span></code></pre>
+
+<h4 id="Confirmed+subscription">Confirmed subscription</h4>
+
+<p>When connected <em>Client</em> has successfully subscribed to the specified channel
+the <em>Server</em> SHALL send an event to confirm that situation. Message's payload
+MUST contain the name of the subscribed channel.</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":subscribed"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"channel"</span><span class="o">:</span> <span class="s2">"channel-name"</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<dl>
+<dt>
+<strong>channel</strong> [string]</dt>
+  <dd>The name of the subscribed channel.</dd>
+</dl><h4 id="Private+channel+subscription">Private channel subscription</h4>
+
+<p>There is no extra parameters for private channel subscription.</p>
+
+<h4 id="Presence+channel+subscription">Presence channel subscription</h4>
+
+<p>The <em>Presence channel</em> is a special kind of channel, which keeps track of all
+<em>Clients</em> subscribed on it and shares that information across all other subscribers.
+In that case, the message's payload MUST contain list of subscribers with their
+<em>Unique name identifiers</em> (<em>UID</em>) - which is an user-defined name used to mark and
+distinguish connected <em>Clients</em>.</p>
+
+<p>The subscribers' entries MAY additionally contain custom data about a particular
+subscriber.</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":subscribed"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"channel"</span><span class="o">:</span> <span class="s2">"channel-name"</span><span class="p">,</span>
+        <span class="s2">"subscribers"</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"unique-user-id"</span><span class="p">,</span>
+                <span class="c1">// ... custom information ...</span>
+            <span class="p">},</span>
+            <span class="c1">// ...</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<dl>
+<dt>
+<strong>channel</strong> [string]</dt>
+  <dd>The name of the subscribed channel.</dd>
+  
+  <dt>
+<strong>subscribers</strong> [array]</dt>
+  <dd>List of active subscribers (the <em>Clients</em> present on the channel).</dd>
+  
+  <dt>
+<strong>subscribers.uid</strong> [string]</dt>
+  <dd>An unique identifier of the subscriber.</dd>
+</dl><div class="box warning">
+  List of subscribers does not contain the <em>Client</em> requesting subscription. It contains
+  only list of the subscribers present on the channel just before this <em>Client</em> joined it.
+  
+  The <em>Client</em> SHALL get another message confirms that he 
+  <a href="#Member+joined+presence+channel">which joined the channel</a>. 
+</div>
+
+
+<h4 id="Presence+channel+activity">Presence channel activity</h4>
+
+<p>Subscribers activity on the presence channel MUST be populated across all other
+subscribers using special events triggered when the <em>Client</em> joined and left the
+channel.</p>
+
+<h4 id="Member+joined+presence+channel">Member joined presence channel</h4>
+
+<p>When new subscriber joined the presence channel the triggered event MUST contain
+the subscriber's unique identifier, and MAY contain additional, custom information
+related to the subscriber.</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":memberJoined"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"unique-user-id"</span><span class="p">,</span>
+        <span class="s2">"channel"</span><span class="o">:</span> <span class="s2">"channel-name"</span><span class="p">,</span>
+        <span class="c1">// ... custom information ...</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<div class="box note">
+  Additional information in the message's payload are those passed by the <em>Client</em>
+  when subscribing to the channel.
+</div>
+
+
+
+
+<dl>
+<dt>
+<strong>uid</strong> [string]</dt>
+  <dd>An unique identifier of the subscriber.</dd>
+
+  <dt>
+<strong>channel</strong> [string]</dt>
+  <dd>The name of the subscribed channel.</dd>
+</dl><h4 id="Subscriber+left+presence+channel">Subscriber left presence channel</h4>
+
+<p>When connected subscriber left a channel, the triggered event MUST contain the subscriber's
+unique identifier and MAY contain extra information related to the subscriber.</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":memberLeft"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"uid"</span><span class="o">:</span> <span class="s2">"unique-user-id"</span><span class="p">,</span>
+        <span class="s2">"channel"</span><span class="o">:</span> <span class="s2">"channel-name"</span><span class="p">,</span>
+        <span class="c1">// ... custom information ...</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<div class="box note">
+  Additional information in the message's payload are those passed by the <em>Client</em> when 
+  subscribing to the channel, merged with extra parameters passed to unsubscription request.
+</div>
+
+
+
+
+<dl>
+<dt>
+<strong>uid</strong> [string]</dt>
+  <dd>An unique identifier of the subscriber.</dd>
+
+  <dt>
+<strong>channel</strong> [string]</dt>
+  <dd>The name of the subscribed channel.</dd>
+</dl><h4 id="Confirmed+unsubscription">Confirmed unsubscription</h4>
+
+<p>When connected <em>Client</em> has successfully unusubscribed from the specified channel
+the <em>Server</em> MUST send an event to confirm that situation. Message's payload MUST
+contain the name of the unsubscribed channel.</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":unsubscribed"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"channel"</span><span class="o">:</span> <span class="s2">"channel-name"</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<div class="box warning">
+  When the <em>Client</em> unsubscribes from the presence channel then only that confirmation
+  is sent to him. Notification about <a href="#Subscriber+left+presence+channel">leaving
+  the channel</a> is not sent then.
+</div>
+
+
+
+
+<dl>
+<dt>
+<strong>channel</strong> [string]</dt>
+  <dd>The name of the subscribed channel.</dd>
+</dl><h4 id="Closed+connection+confirmation">Closed connection confirmation</h4>
+
+<p>When the <em>Client</em> safely closes connection the Server MUST sends an confirmation
+message. The confirmation message SHALL contain the identifier of the closed session.</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":closed"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"sid"</span><span class="o">:</span> <span class="s2">"session-id"</span>
+    <span class="p">}</span> 
+<span class="p">}</span></code></pre>
+
+<dl>
+<dt>
+<strong>sid</strong> [string]</dt>
+  <dd>An unique identifier of the current session.</dd>
+</dl><h4 id="Error+notification">Error notification</h4>
+
+<p>When the <em>Server</em> encountered some problem while processing the <em>Client's</em>
+message then it SHALL send apropriate, explicit information to concerned client.
+The message's payload MUST contain the numeric error code and short, human readable
+explanation.</p>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+    <span class="s2">":error"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"code"</span><span class="o">:</span> <span class="mi">402</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"Unauthorized"</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<dl>
+<dt>
+<strong>code</strong> [int]</dt>
+  <dd>The numeric error code. See <a href="#Status+codes">the list of status codes</a>.</dd>
+  
+  <dt>
+<strong>status</strong> [string]</dt>
+  <dd>A human readable error explanation.</dd>
+</dl><h3 id="Server+events">Server events</h3>
+
+<h3 id="Status+codes">Status codes</h3>
+
+<p>WebRocket status codes are inspired by the <a href="#References">HTTP status codes</a>. Here's
+the full list of possible statuses:</p>
+
+<h4 id="201+Authenticated">201 Authenticated</h4>
+
+<p>Client has been successfully authenticated. Status SHALL NOT appear on the client
+side.</p>
+
+<h4 id="202+Subscribed">202 Subscribed</h4>
+
+<p>Client has successfully subscribed to the channel. Status SHALL NOT appear on the
+client side.</p>
+
+<h4 id="203+Unsubscribed">203 Unsubscribed</h4>
+
+<p>Client has successfully unsubscribed a channel. Status SHALL NOT appear on the
+client side.</p>
+
+<h4 id="204+Broadcasted">204 Broadcasted</h4>
+
+<p>Client has successfully broadcasted information on a channel. Status SHALL NOT
+appear on the client side.</p>
+
+<h4 id="205+Triggered">205 Triggered</h4>
+
+<p>Client has successfully triggered a background operation. Status SHALL NOT appear
+on the client side.</p>
+
+<h4 id="207+Closed">207 Closed</h4>
+
+<p>Client has closed the connection. Status SHALL NOT appear on the client side.</p>
+
+<h4 id="400+Bad+request">400 Bad request</h4>
+
+<p>The message sent by the client couldn't be understood due to malformed syntax.
+The client SHOULD NOT repeat the request without the modifications.</p>
+
+<h4 id="402+Unauthorized">402 Unauthorized</h4>
+
+<p>Returned when invalid credentials given - user doesn't exist in the system or
+secret key is not matching the specified user.</p>
+
+<h4 id="403+Forbidden">403 Forbidden</h4>
+
+<p>The server understood the request, but is refusing to fulfill it due to lack
+of user rights. The request SHOULD NOT be repeated until authenticate for as
+a different user or grant current user with required permissions.</p>
+
+<h4 id="451+Invalid+channel+name">451 Invalid channel name</h4>
+
+<p>Name of the channel specified in the payload is empty or contains invalid
+characters. The request SHOULD NOT be repeated without the channel name
+modifications.</p>
+
+<h4 id="453+Not+subscribed">453 Not subscribed</h4>
+
+<p>Channel is not subscribed by this client, so the operation on it can not be
+finished. The request SHOULD NOT be repeated.</p>
+
+<h4 id="454+Channel+not+found">454 Channel not found</h4>
+
+<p>Specified channel does not exist, so the operation on it can not be finished.
+The request SHOULD NOT be repeated until the channel will be created.</p>
+
+<h4 id="597+Internal+error">597 Internal error</h4>
+
+<p>Something went wrong while processing request.</p>
+
+<h3 id="References">References</h3>
+
+<ul>
+<li>
+<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement</a> - S. Bradner, IETF</li>
+<li>
+<a href="http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol">The WebSockets Protocol</a> - I. Fette, IETF</li>
+<li>
+<a href="http://dev.w3.org/html5/websockets/">The WebSockets API</a> - I. Hickson, W3C</li>
+<li>
+<a href="http://www.ietf.org/rfc/rfc4627">JavaScript Object Notation (JSON)</a> - D. Crockford, JSON.org</li>
+<li>
+<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP Status Code Definitions</a> - W3.org</li>
+</ul>
+        </div>
+        
+      </div>
+    </section>
+    <footer role="contentinfo">
+      <div class="vessel">
+        <p id="copy">
+          Copyleft 2011 - 2012 by
+          <a href="http://www.nu7hat.ch/" title="That asshole with a weird hairdo :)">nu7</a>
+          and folks at <a href="http://cuboxlabs.com" title="Awesome Dev Shop!">Cubox</a>.
+        </p>
+        <p id="footnote">
+          <small>
+            Some rights reserved. It's Open Source my friend! You can fork it <a href="http://github.com/webrocket/webrocket-website/">on github</a>.<br />
+            This side has been built using <a href="http://nanoc.stoneship.org/">nanoc publishing system</a>.
+          </small>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
