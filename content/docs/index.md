@@ -3,9 +3,6 @@ title: Documentation
 kind:  article
 ---
 
-Here you can find all information about the WebRocket server architecture, configuration, 
-usage and maintainance.
-
 ### Installation
 
 If you don't have WebRocket installed yet, follow the instructions for your

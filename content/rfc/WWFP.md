@@ -386,5 +386,3 @@ Something went wrong while processing request.
 * [The WebSockets API](http://dev.w3.org/html5/websockets/) - I. Hickson, W3C
 * [JavaScript Object Notation (JSON)](http://www.ietf.org/rfc/rfc4627) - D. Crockford, JSON.org
 * [HTTP Status Code Definitions](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) - W3.org
-
-### Glossary

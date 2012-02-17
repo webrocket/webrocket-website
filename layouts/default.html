@@ -10,9 +10,7 @@
   <body>
     <header role="banner">
       <div class="vessel">
-        <div id="logo">
-          <h1><a href="/">webrocket</a></h1>
-        </div>
+        <h1 id="logo"><a href="/">webrocket</a></h1>
         <nav role="navigation">
           <li><a href="/docs/">Docs</a></li>
           <li><a href="/guides/">Guides</a></li>
@@ -21,6 +19,11 @@
         <div class="clearfix"></div>
       </div>
     </header>
+    <aside id="tagline">
+      <div class="vessel">
+        Distributed Web Broker for the Masses!
+      </div>
+    </aside>
     <section role="main">
       <div class="vessel">
         <% if item[:kind] == 'article' %>

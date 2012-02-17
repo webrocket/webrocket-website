@@ -20,7 +20,7 @@ module Nanoc3::Filters
       if toc_items.children.size > 0 
         toc = Nokogiri::XML::Node.new('aside', doc)
         toc['id'] = 'toc'
-        toc.inner_html = "<h2>In this section</h2>"
+        toc.inner_html = "<h3>In this section</h3>"
         toc.add_child(toc_items)
         toc.to_s + doc.to_s
       else
