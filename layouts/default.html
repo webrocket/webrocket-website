@@ -10,13 +10,15 @@
   <body>
     <header role="banner">
       <div class="vessel">
-        <h1 id="logo"><a href="/">webrocket</a></h1>
-        <nav role="navigation">
-          <li><a href="/docs/">Docs</a></li>
-          <li><a href="/guides/">Guides</a></li>
-          <li><a href="/cloud/">Our Cloud!</a></li>
-        </nav>
-        <div class="clearfix"></div>
+        <div class="in">
+          <h1 id="logo"><a href="/">webrocket</a></h1>
+          <nav role="navigation">
+            <li><a href="/docs/">Docs</a></li>
+            <li><a href="/guides/">Guides</a></li>
+            <li><a href="/cloud/">Our Cloud!</a></li>
+          </nav>
+          <div class="clearfix"></div>
+        </div>
       </div>
     </header>
     <aside id="tagline">
@@ -25,28 +27,71 @@
       </div>
     </aside>
     <section role="main">
+      <% if item[:kind] == 'article' %>
       <div class="vessel">
-        <% if item[:kind] == 'article' %>
         <div class="article">
           <h2><%= item[:title] %></h2>
           <%= yield %>
         </div>
-        <% else %>
+      </div>
+      <% else %>
         <%= yield %>
-        <% end %>
+      <% end %>
+    </section>
+    <section id="footlinks">
+      <div class="vessel">
+        <div class="box">
+          <h3>About</h3>
+          <nav>
+            <li><a href="/team/">Team</a></li>
+            <li><a href="/customers/">Customers</a></li>
+            <li><a href="/press/">Press</a></li>
+            <li><a href="/legal/">Terms of service</a></li>
+          </nav>
+        </div>
+        <div class="box">
+          <h3>Learn</h3>
+          <nav>
+            <li><a href="/docs/">Documentation</a></li>
+            <li><a href="/guides/">Guides</a></li>
+            <li><a href="/download/?#Client+libraries">Client libraries</a></li>
+            <li><a href="http://github.com/webrocket/">Code</a></li>
+            <li><a href="/examples/">Examples</a></li>
+          </nav>
+        </div>
+        <div class="box">
+          <h3>Join</h3>
+          <nav>
+            <li><a href="/cloud/">Our cloud</a></li>
+            <li><a href="/support/">Commercial support</a></li>
+            <li><a href="/trainings/">Trainings</a></li>
+          </nav>
+        </div>
+        <div class="box">
+          <h3>Social</h3>
+          <nav>
+            <li><a href="http://twitter.com/webrocketio">Twitter</a></li>
+            <li><a href="http://groups.google.com/group/webrocket">Mailing list</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </nav>
+        </div>
+        <div class="clearfix"></div>
       </div>
     </section>
     <footer role="contentinfo">
       <div class="vessel">
+        <div id="cubox">
+          <a href="http://cuboxlabs.com"><img src="/img/cubox-logo.png" alt="Cubox - Available For Awesomness!"/></a>
+        </div>
         <p id="copy">
-          Copyleft 2011 - <%= Time.now.year %> by
+          Copyleft <%= Time.now.year %> by
           <a href="http://www.nu7hat.ch/" title="That asshole with a weird hairdo :)">nu7</a>
-          and folks at <a href="http://cuboxlabs.com" title="Awesome Dev Shop!">Cubox</a>.
+          and folks at <a href="http://cuboxlabs.com" title="Awesome Dev Shop!">Cubox</a>. Some rights reserved.
         </p>
         <p id="footnote">
           <small>
-            Some rights reserved. It's Open Source my friend! You can fork it <a href="http://github.com/webrocket/webrocket-website/">on github</a>.<br />
-            This side has been built using <a href="http://nanoc.stoneship.org/">nanoc publishing system</a>.
+            It's Open source, comrade! You can fork it <a href="http://github.com/webrocket/webrocket-website/">on github</a>.<br />
+            The site has been built with <a href="http://nanoc.stoneship.org/">nanoc</a> publishing system.
           </small>
         </p>
       </div>

@@ -29,9 +29,9 @@ compile '*' do
     filter :erb
     case item[:extension]
     when "md"
-      filter :rdiscount, :extensions => [ :generate_toc ]
+      filter :rdiscount
     end
-    filter :generate_toc if item[:kind] == "article"
+    filter :generate_toc if item[:kind] == "article" && item[:toc] != 'no'
     filter :colorize_syntax, :default_colorizer => :pygmentize
     layout 'default'
   end
