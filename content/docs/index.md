@@ -1,6 +1,7 @@
 ---
 title: Documentation
 kind:  article
+group: docs
 ---
 
 ### Installation

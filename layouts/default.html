@@ -3,19 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>WebRocket - <%= @item[:title] %></title>
+    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
     <link rel="stylesheet" type="text/css" href="/css/webfonts.css" media="screen">
     <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen">
     <meta name="generator" content="nanoc 3.2.4">
   </head>
-  <body>
+  <body class="<%= item[:group] %>">
     <header role="banner">
       <div class="vessel">
         <div class="in">
           <h1 id="logo"><a href="/">webrocket</a></h1>
           <nav role="navigation">
-            <li><a href="/docs/">Docs</a></li>
-            <li><a href="/guides/">Guides</a></li>
-            <li><a href="/cloud/">Our Cloud!</a></li>
+            <li><a href="/" id="nav_home">Home</a></li>
+            <li><a href="/docs/" id="nav_docs">Docs</a></li>
+            <li><a href="/guides/" id="nav_guides">Guides</a></li>
+            <li><a href="/cloud/" id="nav_cloud">Our Cloud!</a></li>
           </nav>
           <div class="clearfix"></div>
         </div>
@@ -96,5 +98,15 @@
         </p>
       </div>
     </footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/js/jquery.spritely-0.6.1.js"></script>
+    <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+    <script defer="defer">
+        $(function(){
+          $('#how_it_works #stars1').pan({fps: 20, speed: 0.5, dir: 'right'});
+          $('#how_it_works #stars2').pan({fps: 20, speed: 0.2, dir: 'right'});
+        });
+    </script>
   </body>
 </html>

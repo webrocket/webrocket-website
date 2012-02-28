@@ -309,14 +309,17 @@ pre, code{
 }
 [role='navigation'] a{
    display:block;
-   padding:36px .8em 4px .8em;
-   font-size:1.2em;
+   padding:36px .4em 4px .4em;
+   font-size:1.1em;
    line-height:26px;
    color:#28484F;
    margin:8px;
    margin-top:-4px;
 }
-[role='navigation'] a:hover{
+.home a#nav_home,
+.docs a#nav_docs,
+.guides a#nav_guides,
+.cloud a#nav_cloud{
    margin:0;
    margin-top:-112px;
    padding-top:136px;
@@ -324,6 +327,9 @@ pre, code{
    background:#e36556;
    text-decoration:none;
    border:8px solid #ece2d8;
+}
+[role='navigation'] a:hover {
+   color: #e36556;
 }
 #tagline{
    background:rgba(0, 0, 0, .2);
@@ -381,51 +387,67 @@ pre, code{
 [role='contentinfo'] a:hover{
 }
 #why, #how, #what{
-   padding:1em;
-   margin:15px 0;
+   padding: 1em;
+   margin: 1.5em 0 0 0;
    position:relative;
+   width: 33%;
+   box-sizing: border-box;
+   z-index:2000;
+   color:#ece2d8;
+   text-shadow:1px 1px 0 rgba(0,0,0,.4);
+   line-height:1.7em;
+   text-align: center;
+   font-size: 1.1em;
+   height: 430px;
+}
+#why, #how {
+   float: left;
 }
 #why p, #how p, #what p{
    margin:0;
 }
 #why{
-   z-index:2000;
-   margin-top:1em;
-   font-size:1.6em;
-   background:#e36556;
-   color:#ece2d8;
-   text-shadow:1px 1px 0 rgba(0,0,0,.4);
-   line-height:1.4em;
-   padding-left:150px;
+   margin-right: .5%
 }
-#why strong{
-   color:#ffda96;
+#why .icon, #what .icon, #how .icon{
+   content:'';
+   display: block;
+   height: 143px;
+   margin-bottom: 1em;
 }
-#how{
-   z-index:1800;
-   text-shadow:1px 1px 0 rgba(255,255,255,.7);
-   font-size:1.4em;
-   background:#ffda96;
-   color:#143a43;
-   line-height:1.4em;
-   padding-right:120px;
+#what .icon {
+   background: url(/img/hand.png) no-repeat center -136px;
 }
-#how strong{
-   color:#042a33;
+#how .icon {
+   background: url(/img/connections.png) no-repeat center -144px;
+}
+#why .icon {
+   background: url(/img/lightbulb.png) no-repeat center -145px;
+}
+#why:hover .icon, #what:hover .icon, #how:hover .icon {
+   background-position: center 0;
+}
+#what:hover .icon {
+   background-position: center 7px;
+}
+#why strong, #how strong, #what strong{
+   text-shadow:3px 3px 0 rgba(0,0,0,.6);
+}
+#why:hover, #what:hover, #how:hover {
+   background: rgba(0,0,0,.1);
+   -webkit-border-radius: 2px;
 }
 #what{
-   z-index:1600;
-   font-size:1.3em;
-   background:#ece2d8;
-   color:#143a43;
-   text-shadow:1px 1px 0 rgba(255, 255, 255, .7);
-   padding-left:120px;
+   margin-left: .5%;
+   float: right;
 }
 #what a{
-   color:#e36556;
+   font-weight: bold;
+   color:#ffda96;
+   text-shadow:3px 3px 0 rgba(0,0,0,.6);
 }
 #get_it_now{
-   margin-top:3em;
+   margin-top:2em;
    background:rgba(0,0,0,0.2);
 /*border-radius*/
    -webkit-border-radius:2px 2px 0 0;
@@ -648,6 +670,104 @@ pre, code{
 }
 #cubox a:hover{
    opacity:.5;
+}
+
+#how_it_works{
+   height: 509px;
+   width: 812px;
+   margin-top: -0.5em;
+   margin-bottom: 2.5em;
+   background: #1a1F21;
+}
+#how_it_works #stars1, #how_it_works #stars2 {
+   background-repeat: repeat;
+   background-position: 0px 0px;
+   background-color: transparent;
+   background-image: url(/img/dg-stars.png);
+   width: 812px;
+   height: 509px;
+   position: absolute;
+   z-index: 99;
+}
+#how_it_works #rockets {
+   width: 812px;
+   height: 509px;
+   z-index: 100;
+   background: url(/img/dg-rockets.png) center center no-repeat;
+   position: absolute;
+}
+#how_it_works #stars1 {
+   background-size: 20% 20%;
+   z-index: 98;
+}
+#how_it_works .frame {
+   height: 509px;
+   position: relative;
+   z-index: 105;
+   background: url(/img/dg-frame.png) top center no-repeat;
+   background-size: 812px 509px;
+}
+#how_it_works_browsers {
+   width: 164px;
+   height: 237px;
+   background: url(/img/dg-browsers.png) center center no-repeat;
+   position: absolute;
+   left: 595px;
+   top: 150px;
+}
+#how_it_works_clients {
+   width: 99px;
+   height: 99px;
+   background: url(/img/dg-clients.png) center center no-repeat;
+   position: absolute;
+   top: 90px;
+   left: 79px;
+}
+#how_it_works_workers {
+   width: 111px;
+   height: 129px;
+   background: url(/img/dg-workers.png) center center no-repeat;
+   position: absolute;
+   top: 275px;
+   left: 55px;
+}
+#how_it_works ul{
+   z-index: 100;
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   position: relative;
+}
+#how_it_works li .in {
+   position: absolute;
+   background: #E36556;
+   padding: 5px 12px;
+}
+#how_it_works h3 {
+   font-family: ProtoSans21;
+   padding: 0;
+   margin: 0;
+   color: #FFDA96;
+   text-shadow: 1px 1px 0 rgba(0,0,0,.2); 
+   font-size: 1em;
+}
+#how_it_works_browsers .in {
+   top: -55px;
+   left: 25px;
+}
+#how_it_works_clients .in {
+   top: -22px;
+   left: 100px;
+}
+#how_it_works_workers .in {
+   top: -45px;
+   left: 12px;
+}
+#how_it_works_broker {
+   display: none;
+}
+#how_it_works li p{
+   display: none;
 }
 
 

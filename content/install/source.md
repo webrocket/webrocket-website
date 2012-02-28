@@ -1,6 +1,7 @@
 ---
 title: Installation from source
 kind:  article
+group: docs
 ---
 
 To install WebRocket from source you need the following tools and dependecies:

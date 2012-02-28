@@ -1,6 +1,7 @@
 ---
 title: Kosmonaut for Ruby
 kind:  article
+group: docs
 ---
 
 Kosmonaut version for Ruby is an **official** client. It is considered to be **stable**. 

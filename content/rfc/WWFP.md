@@ -1,6 +1,7 @@
 ---
 title: WebRocket Websockets Frontend Protocol
 kind:  article
+group: docs
 ---
 
 ### Abstract
