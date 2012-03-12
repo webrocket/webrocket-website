@@ -19,107 +19,64 @@ You can install it easily via rubygems:
     
 If you are using bundler, then just add the following line:
 
-    gem "kosmonaut", ">= 0.3.0"
+    gem "kosmonaut", ">= 0.4.0"
 
 ### Client
 
 Client will be used to manage channels, provide authentication gateway and broadcast
 events from the application.
 
-Initialization:
+Here's trivial example:
 
     #!ruby
-    client = Kosmonaut::Client.new("wr://token...@127.0.0.1:8080/vhost")
-
-Opening channel:
-
-    #!ruby
-    client.open_channel("room")
-    client.open_channel("presence-room")
-    client.open_channel("private-room")
+    c = Kosmonaut::Client.new("wr://token@127.0.0.1:8081/vhost")
+    c.open_channel("world")
+    c.broadcast("world", "hello", {:who => "Chris"})
+    c.broadcast("world", "bye", {:see_you_when => "Soon!"})
     
-Closing channel:
+Requesting single access token operation:
 
-    #!ruby
-    client.close_channel("room")
+    token = c.request_single_access_token(".*")
     
-Broadcasting data:
-
-    #!ruby
-    client.broadcast("room", "hello", {"what": "world"})
-
-Requesting for a single access token:
-
-    #!ruby
-    client.request_single_access_token("joe", ".*")
-
 ### Worker
 
 Worker is designed to listen and handle all messages incoming from the backend
-endpoint of WebRocket server.
+endpoint of WebRocket server. Ruby version of kosmonaut provides some high level
+interface to deal with the handlers.
 
-It shall be used by creating custom worker which inherits from `Kosmonaut::Worker`
-and defines three handlers: `on_message`, `on_error` and `on_exception`. Here's an example:
+Here's an example of backend for the chat application:
 
     #!ruby
-    class MyWorker < Kosmonaut::Worker
-      def on_message(event, data)
-        if event == "append_chat_history"
-          @room = Room.find(data[:room_id])
-          @room.messages.build(data[:message])
-          @room.save!
-        end
-      end
-   
-      def on_error(err)
-        puts "WEBROCKET ERROR: #{err.to_s}"
-      end
-  
-      def on_exception(err)
-        puts "INTERNAL ERROR: #{err.to_s}"
+    class ChatBackend
+      # This method will be triggered on 'chat/save_to_history' event.
+      def save_to_history(msg)
+        room.find(msg[:room])
+        room.history.append(msg)
       end
     end
 
-#### Handlers
-
-**on_message** hanldles all valid incoming messages. It gets two arguments, first is an 
-event name, second - data hash associated to this event. Errors raised from within this 
-method are caught and handled by `on_exception` handler.
-
-**on_error** handles WebRocket protocol errors. If something will go wrong
-with the communication between worker and WebRocket's backend, then appropriate
-error object will be passed to this method. The same as with `on_message`, all 
-exceptions raised from within this method are caught and handled by `on_exception` 
-handler.
-
-**on_exception** handles internal errors. All exceptions raised from within
-other handlers are caught and passed to this method.
-
-#### Starting listener
-
-To make your worker running, you have to use `listen` method:
+It can be used now within the worker as following:
 
     #!ruby
-    worker = MyWorker.new("wr://token...@127.0.0.1:8080/vhost")
-    worker.listen
+    Kosmonaut::Application.build "wr://token@127.0.0.1:8081/vhost" do
+      use ChatBackend, :as => "chat"
+      run
+    end
 
-Calling `listen` will block current thread. Worker automatically handles reconnects
-and recovery from the errors. The only two cases when worker can break are when
-specified token is invalid and `UnauthorizedError` appears, or when `on_exception`
-callback raises an error. 
+### Worker in separate thread
 
-#### Listener in separate thread
-
-Kosmonaut is threadsafe, so worker can be run safely in separate thread:
+Kosmonaut is threadsafe, so worker application can be run safely in separate
+thread:
 
     #!ruby
-    Thread.new { worker.listen }
+    app = Kosmonaut::Application.build("wr://token@127.0.0.1:8081/vhost") { ... }
+    Thread.new { app.run }
     
 In this case you can stop the listener whenever you want from other thread using
 `stop` method:
 
     #!ruby
-    worker.stop
+    app.stop
 
 ### Troubleshooting
 
