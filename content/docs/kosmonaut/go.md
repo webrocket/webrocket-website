@@ -4,6 +4,8 @@ kind:  article
 group: docs
 ---
 
+### Status
+
 Kosmonaut version for for ruby is an **official** client. It is considered
 to be stable and we're encouraging you to use it.
  
@@ -43,7 +45,7 @@ building your more sophisticated workers. Here's an example:
             }
     }
 
-For further information check the package documentation.
+For further information check the [package documentation](http://gopkgdoc.appspot.com/pkg/github.com/webrocket/webrocket/pkg/kosmonaut).
 
 ### Troubleshooting
 

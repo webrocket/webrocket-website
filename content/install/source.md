@@ -4,8 +4,6 @@ kind:  article
 group: docs
 ---
 
-To install WebRocket from source you need the following tools and dependecies:
-
 ### Go 1 compiler
 
 WebRocket is written in the Go programming language. Obviously you need to

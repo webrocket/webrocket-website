@@ -50,7 +50,7 @@ body { margin: 0; font-size: 1em; line-height: 1.4; }
    ========================================================================== */
 
 a { color: green; }
-a:visited { color: green; }
+a:visited { }
 a:hover { color: #000; }
 a:focus { outline: thin dotted; }
 
@@ -206,9 +206,6 @@ body{
 }
 a{
    text-decoration:none;
-   color:#e36556;
-}
-a:visited{
    color:#e36556;
 }
 a:hover{
@@ -392,9 +389,11 @@ pre, code{
    margin: 1.5em 0 0 0;
    position:relative;
    width: 33%;
-   box-sizing: border-box;
    z-index:2000;
    color:#ece2d8;
+   border-radius: 2px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
    text-shadow:1px 1px 0 rgba(0,0,0,.4);
    line-height:1.7em;
    text-align: center;
@@ -436,7 +435,7 @@ pre, code{
    text-shadow:3px 3px 0 rgba(0,0,0,.6);
 }
 #why:hover, #what:hover, #how:hover {
-   background: rgba(0,0,0,.1);
+   background: rgba(0,0,0,.2);
    -webkit-border-radius: 2px;
 }
 #what{
@@ -783,6 +782,93 @@ pre, code{
    display: none;
 }
 
+blockquote {
+   background: rgba(255, 255, 255, 0.3);
+   color: #666666;
+   font-style: italic;
+   margin: 0;
+   padding: 0.6em;
+   border-left: 5px solid rgba(0,0,0,.3);
+}
+
+.cloud #footlinks {
+   display: none;
+}
+
+.cloud [role='main'] .vessel-b {
+   min-height: 622px;
+   background: url(/img/big-rocket-2.png) 140px 50px no-repeat;
+}
+.cloud [role='main'] .vessel-m {
+   min-height: 622px;
+   margin: 0 -100px;
+   background: url(/img/clouds.png) center top no-repeat;
+}
+.cloud [role='main'] .vessel-f {
+   min-height: 622px;
+   background: url(/img/big-rocket.png) right -335px no-repeat;
+}
+
+#signup_beta {
+   background:#ece2d8 url(/img/grunge_wall.png) repeat;
+   padding:1.5em;
+   font-family:Mako;
+   position: relative;
+   width: 60%;
+   top: 140px;
+/*box-shadow*/
+   -webkit-box-shadow:6px 6px 0 rgba(255,255,255,.15);
+   -moz-box-shadow:6px 6px 0 rgba(255,255,255,.15);
+   box-shadow:6px 6px 0 rgba(255,255,255,.15);
+}
+
+#signup_beta h2 {
+   color: #28484F;
+   font-family: ProtoSans21;
+   margin: 0;
+   padding: 0;
+   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);   
+}
+#signup_beta label {
+   display: block;
+   padding: 1em 0 0.6em 0;
+   color: #555;
+   font-size: 1.2em;
+}
+#signup_email {
+   background: none repeat scroll 0 0 #28484F;
+   border: 2px solid #08282F;
+   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3) inset;
+   -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3) inset;
+   -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3) inset;
+   color: rgba(255, 255, 255, 0.7);
+   font-size: 1.4em;
+   padding: 4px 0;
+   width: 399px;
+}
+#submit_signup {
+   background: none repeat scroll 0 0 #E36556;
+   border: 1px solid #B34546;
+   box-shadow: 3px 3px 6px rgba(255, 255, 255, 0.2) inset;
+   -webkit-box-shadow: 3px 3px 6px rgba(255, 255, 255, 0.2) inset;
+   -moz-box-shadow: 3px 3px 6px rgba(255, 255, 255, 0.2) inset;
+   color: #FFFFFF;
+   display: inline-block;
+   font-family: ProtoSans21;
+   font-size: 1.2em;
+   margin-left: 5px;
+   padding: 8px 20px 6px;  
+}
+#submit_signup:focus {
+   background: none repeat scroll 0 0 #D35556;
+   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15) inset;
+   -webkit-box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15) inset;
+   -moz-box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15) inset;
+}
+
+#supported_platforms {
+   
+}
 
 /* ==|== pygments ===========================================================
    Syntax highlighting styles
